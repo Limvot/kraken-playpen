@@ -20,7 +20,7 @@ pacstrap -c -d root-master.new \
     procps-ng \
     shadow \
     util-linux \
-    gcc
+    gcc \
 
 mkdir root-master.new/dev/shm
 mknod -m 666 root-master.new/dev/null c 1 3
@@ -33,9 +33,17 @@ install -m755 bin/* root-master.new/usr/local/bin
 #pacman -r root-master.new -S rust-git --noconfirm
 #pacman -r root-0.12.0.new -S rust --noconfirm
 
-curl -O https://static.rust-lang.org/rustup.sh
-sh rustup.sh --prefix=root-master.new
-rm rustup.sh
+#curl -O https://static.rust-lang.org/rustup.sh
+#sh rustup.sh --prefix=root-master.new
+#rm rustup.sh
+
+git clone https://github.com/Limvot/kraken.git root-master.new/kraken
+mkdir root-master.new/build
+cd root-master.new/build
+cmake ../kraken
+make
+./kraken ../kraken/krakenGrammer.kgm ../kraken/tests/test_string.krak throwaway_build
+cd ../..
 
 [[ -d root-master ]] && mv root-master root-master.old
 mv root-master.new root-master

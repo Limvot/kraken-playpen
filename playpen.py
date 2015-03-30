@@ -3,12 +3,25 @@
 import subprocess
 
 def execute(version, command, arguments, data=None):
-    with subprocess.Popen(("playpen",
+    print(("playpen",
                            "root-" + version,
                            "--mount-proc",
                            "--user=rust",
                            "--timeout=5",
                            "--syscalls-file=whitelist",
+                           "--devices=/dev/urandom:r,/dev/null:w",
+                           "--memory-limit=128",
+                           "--",
+                           command) + arguments)
+    with subprocess.Popen(("playpen",
+                           "root-" + version,
+                           "--mount-proc",
+                           "--user=rust",
+                           "--timeout=5",
+                           #"--syscalls-file=whitelist",
+                           #"--learn=beyondpalelist",
+                           #"--syscalls-file=beyondpalelist",
+                           "--syscalls-file=alllist",
                            "--devices=/dev/urandom:r,/dev/null:w",
                            "--memory-limit=128",
                            "--",

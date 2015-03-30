@@ -1,4 +1,5 @@
 access
+uname
 arch_prctl
 brk
 chdir
@@ -25,7 +26,6 @@ getgid
 getpgrp
 getpid
 getppid
-getrandom
 getresgid
 getresuid
 getrlimit
@@ -68,3 +68,8 @@ unlink
 vfork
 wait4
 write
+writev
+fchdir
+fchmodat
+newfstatat
+unlinkat

@@ -109,7 +109,8 @@ function format(result, session, version) {
 }
 
 function share(result, version, code) {
-    var playurl = "https://play.rust-lang.org?code=" + encodeURIComponent(code);
+    //var playurl = "https://play.rust-lang.org?code=" + encodeURIComponent(code);
+    var playurl = "http://kraken.room409.xyz?code=" + encodeURIComponent(code);
     if (version != "master") {
         playurl += "&version=" + encodeURIComponent(version);
     }
@@ -197,8 +198,8 @@ function set_theme(editor, themelist, theme) {
 addEventListener("DOMContentLoaded", function() {
     var evaluateButton = document.getElementById("evaluate");
     var asmButton = document.getElementById("asm");
-    var irButton = document.getElementById("llvm-ir");
-    var formatButton = document.getElementById("format");
+    //var irButton = document.getElementById("llvm-ir");
+    //var formatButton = document.getElementById("format");
     var shareButton = document.getElementById("share");
     var result = document.getElementById("result");
     var optimize = document.getElementById("optimize");
@@ -271,14 +272,14 @@ addEventListener("DOMContentLoaded", function() {
                  optimize.options[optimize.selectedIndex].value);
     };
 
-    irButton.onclick = function() {
-        compile("llvm-ir", result, session.getValue(), version.options[version.selectedIndex].text,
-                 optimize.options[optimize.selectedIndex].value);
-    };
+    //irButton.onclick = function() {
+        //compile("llvm-ir", result, session.getValue(), version.options[version.selectedIndex].text,
+                 //optimize.options[optimize.selectedIndex].value);
+    //};
 
-    formatButton.onclick = function() {
-        format(result, session, version.options[version.selectedIndex].text);
-    };
+    //formatButton.onclick = function() {
+        //format(result, session, version.options[version.selectedIndex].text);
+    //};
 
     shareButton.onclick = function() {
         share(result, version.value, session.getValue());
