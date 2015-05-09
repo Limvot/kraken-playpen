@@ -34,8 +34,12 @@
             </select>
         </p>
         <div id="editor">import io;
-|int| main() {
+fun id&#60T&#62(something: T): T { return something; }
+fun main(): int {
     io::println("Hello, world!")
+    var new_syntax: int = 9
+    io::println(id&#60int&#62(new_syntax))
+    return 0
 }</div>
         <pre id="result" class="highlight"></pre>
     </body>
