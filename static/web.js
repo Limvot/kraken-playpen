@@ -109,8 +109,7 @@ function format(result, session, version) {
 }
 
 function share(result, version, code) {
-    //var playurl = "https://play.rust-lang.org?code=" + encodeURIComponent(code);
-    var playurl = "http://kraken.room409.xyz?code=" + encodeURIComponent(code);
+    var playurl = "http://kraken.room409.xyz/?code=" + encodeURIComponent(code);
     if (version != "master") {
         playurl += "&version=" + encodeURIComponent(version);
     }
