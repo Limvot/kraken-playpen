@@ -104,4 +104,4 @@ def compile(emit, optimize, version):
         return {"result": highlight(split[1].decode(), LlvmLexer(), HtmlFormatter(nowrap=True))}
 
 os.chdir(sys.path[0])
-run(host='0.0.0.0', port=80, server='cherrypy')
+run(host='0.0.0.0', port=8000, server='cherrypy')
