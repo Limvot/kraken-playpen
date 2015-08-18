@@ -1,3 +1,5 @@
-A web interface for running Rust code built using [playpen](https://github.com/thestinger/playpen).
+A web interface for running Kraken code built using [playpen](https://github.com/thestinger/playpen).
 
-It is hosted at <http://play.rust-lang.org/>.
+It is hosted at <http://play.kraken-lang.org/>.
+
+It is forked from the wonderful rust-playpen project.
