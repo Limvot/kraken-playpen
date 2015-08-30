@@ -7,7 +7,7 @@ def execute(version, command, arguments, data=None):
                            "root-" + version,
                            "--mount-proc",
                            "--user=rust",
-                           "--timeout=5",
+                           "--timeout=10",
                            "--syscalls-file=whitelist",
                            "--devices=/dev/urandom:r,/dev/null:w",
                            "--memory-limit=128",
