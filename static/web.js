@@ -66,7 +66,7 @@ function send(path, data, callback) {
             }
         }
     }
-    request.timeout = 10000;
+    request.timeout = 60000;
     request.ontimeout = function() {
         result.textContent = "connection timed out"
     }

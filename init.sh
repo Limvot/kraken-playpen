@@ -38,11 +38,13 @@ install -m755 bin/* root-master.new/usr/local/bin
 #rm rustup.sh
 
 git clone https://github.com/Limvot/kraken.git root-master.new/kraken
-mkdir root-master.new/build
-cd root-master.new/build
-cmake ../kraken
-make
-./kraken ../kraken/krakenGrammer.kgm ../kraken/tests/test_string.krak throwaway_build
+#mkdir root-master.new/build
+#cd root-master.new/build
+cd root-master.new/kraken
+./captain.sh
+#cmake ../kraken
+#make
+#./kraken ../kraken/krakenGrammer.kgm ../kraken/tests/test_string.krak throwaway_build
 cd ../..
 
 [[ -d root-master ]] && mv root-master root-master.old
