@@ -8,7 +8,7 @@ while read LINE; do
 done
 echo ${LINE} >> out.krak
 #/build/kraken /kraken/krakenGrammer.kgm ./out.krak out > throwaway_stdout
-cat out.krak
+#cat out.krak
 /kraken/kraken ./out.krak
 
 #/kraken/kraken ./out.krak > /dev/null
