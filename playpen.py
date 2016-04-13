@@ -3,17 +3,17 @@
 import subprocess
 
 def execute(version, command, arguments, data=None):
-    print(("playpen",
-                           "root-" + version,
-                           "--mount-proc",
-                           "--user=rust",
-                           "--timeout=60",
-                           "--syscalls-file=whitelist",
-                           "--devices=/dev/urandom:r,/dev/null:w",
-                           "--memory-limit=128",
-                           "--",
-                           command) + arguments)
-    with subprocess.Popen(("playpen",
+    #print(("playpen",
+                           #"root-" + version,
+                           #"--mount-proc",
+                           #"--user=rust",
+                           #"--timeout=60",
+                           ##"--syscalls-file=whitelist",
+                           #"--devices=/dev/urandom:r,/dev/null:w",
+                           #"--memory-limit=128",
+                           #"--",
+                           #command) + arguments)
+    args = ("playpen",
                            "root-" + version,
                            "--mount-proc",
                            "--user=rust",
@@ -23,12 +23,32 @@ def execute(version, command, arguments, data=None):
                            #"--syscalls-file=beyondpalelist",
                            "--syscalls-file=alllist",
                            "--devices=/dev/urandom:r,/dev/null:w",
-                           "--memory-limit=128",
+                           #"--memory-limit=128",
+                           "--memory-limit=1024",
+                           "--cpu-shares=131072",
                            "--",
-                           command) + arguments,
+                           command) + arguments
+    print(args)
+    with subprocess.Popen(args,
                            stdin=subprocess.PIPE,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT) as p:
+    #with subprocess.Popen(("playpen",
+                           #"root-" + version,
+                           #"--mount-proc",
+                           #"--user=rust",
+                           #"--timeout=60",
+                           ##"--syscalls-file=whitelist",
+                           ##"--learn=beyondpalelist",
+                           ##"--syscalls-file=beyondpalelist",
+                           ##"--syscalls-file=alllist",
+                           #"--devices=/dev/urandom:r,/dev/null:w",
+                           #"--memory-limit=128",
+                           #"--",
+                           #command) + arguments,
+                           #stdin=subprocess.PIPE,
+                           #stdout=subprocess.PIPE,
+                           #stderr=subprocess.STDOUT) as p:
         if data is None:
             out = p.communicate()[0]
         else:
