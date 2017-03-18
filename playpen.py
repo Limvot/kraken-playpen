@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
 import subprocess
+import random
+import os
 
 def execute(version, command, arguments, data):
-    temp_name = "temp.krak"
+    # random file name to prevent data races between different evals
+    temp_name = "temp" + str(random.random()) + ".krak"
     with open(temp_name, 'w') as f:
         f.write(data)
     #args = ["./kraken/kraken", "-i", temp_name] + arguments
@@ -15,7 +18,11 @@ def execute(version, command, arguments, data):
                            stderr=subprocess.STDOUT) as p:
         out = p.communicate()[0]
         if command == "evaluate":
-            return (out, p.returncode)
+            pass
         elif command == "compile":
-            with open(temp_name + ".c") as f:
-                return (f.read(), p.returncode)
+            temp_name_c = temp_name + ".c"
+            with open(temp_name_c) as f:
+                out = f.read()
+            os.remove(temp_name_c)
+        os.remove(temp_name)
+        return (out, p.returncode)
