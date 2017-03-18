@@ -4,3 +4,5 @@ root-*
 shorten_key.py
 *.swo
 *.swp
+temp.krak
+temp.krak.c

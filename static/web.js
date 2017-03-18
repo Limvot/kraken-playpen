@@ -109,8 +109,8 @@ function format(result, session, version) {
 }
 
 function share(result, version, code) {
-    //var playurl = "http://www.kraken-lang.org/?code=" + encodeURIComponent(code);
-    var playurl = "http://demo.room409.xyz/?code=" + encodeURIComponent(code);
+    var playurl = "http://play.kraken-lang.org/?code=" + encodeURIComponent(code);
+    //var playurl = "http://demo.room409.xyz/?code=" + encodeURIComponent(code);
     if (version != "master") {
         playurl += "&version=" + encodeURIComponent(version);
     }

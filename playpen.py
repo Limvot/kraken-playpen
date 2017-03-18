@@ -2,55 +2,20 @@
 
 import subprocess
 
-def execute(version, command, arguments, data=None):
-    #print(("playpen",
-                           #"root-" + version,
-                           #"--mount-proc",
-                           #"--user=rust",
-                           #"--timeout=60",
-                           ##"--syscalls-file=whitelist",
-                           #"--devices=/dev/urandom:r,/dev/null:w",
-                           #"--memory-limit=128",
-                           #"--",
-                           #command) + arguments)
-    args = ("playpen",
-                           "root-" + version,
-                           "--mount-proc",
-                           "--user=rust",
-                           "--timeout=60",
-                           #"--syscalls-file=whitelist",
-                           #"--learn=beyondpalelist",
-                           #"--syscalls-file=beyondpalelist",
-                           "--syscalls-file=alllist",
-                           "--devices=/dev/urandom:r,/dev/null:w",
-                           #"--memory-limit=128",
-                           "--memory-limit=1024",
-                           "--cpu-shares=131072",
-                           "--",
-                           command) + arguments
+def execute(version, command, arguments, data):
+    temp_name = "temp.krak"
+    with open(temp_name, 'w') as f:
+        f.write(data)
+    #args = ["./kraken/kraken", "-i", temp_name] + arguments
+    args = ["./kraken/kraken", {"evaluate" : "-i", "compile" : "--no-c-compile"}[command], temp_name]
     print(args)
     with subprocess.Popen(args,
                            stdin=subprocess.PIPE,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT) as p:
-    #with subprocess.Popen(("playpen",
-                           #"root-" + version,
-                           #"--mount-proc",
-                           #"--user=rust",
-                           #"--timeout=60",
-                           ##"--syscalls-file=whitelist",
-                           ##"--learn=beyondpalelist",
-                           ##"--syscalls-file=beyondpalelist",
-                           ##"--syscalls-file=alllist",
-                           #"--devices=/dev/urandom:r,/dev/null:w",
-                           #"--memory-limit=128",
-                           #"--",
-                           #command) + arguments,
-                           #stdin=subprocess.PIPE,
-                           #stdout=subprocess.PIPE,
-                           #stderr=subprocess.STDOUT) as p:
-        if data is None:
-            out = p.communicate()[0]
-        else:
-            out = p.communicate(data.encode())[0]
-        return (out, p.returncode)
+        out = p.communicate()[0]
+        if command == "evaluate":
+            return (out, p.returncode)
+        elif command == "compile":
+            with open(temp_name + ".c") as f:
+                return (f.read(), p.returncode)

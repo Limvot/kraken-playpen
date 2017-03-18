@@ -17,10 +17,11 @@
             <!--<button id="format">format</button>-->
             <button id="share">share</button>
             <select id="optimize">
-                <option value="0">-O0</option>
-                <option value="1">-O1</option>
-                <option value="2" selected="true">-O2</option>
-                <option value="3">-O3</option>
+                <option value="0">default</option>
+                <!--<option value="0">-O0</option>-->
+                <!--<option value="1">-O1</option>-->
+                <!--<option value="2" selected="true">-O2</option>-->
+                <!--<option value="3">-O3</option>-->
             </select>
             <select id="version">
                 <option>master</option>
@@ -33,7 +34,7 @@
             <select id="themes">
             </select>
         </p>
-        <div id="editor">import simple_print:*
+        <div id="editor">import io:*
 fun main(): int {
     println("Hello, world!")
     return 0

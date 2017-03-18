@@ -62,7 +62,7 @@ def extractor(key, default, valid):
 @extractor("version", "master", ("master",))
 @extractor("optimize", "2", ("0", "1", "2", "3"))
 def evaluate(optimize, version):
-    out, _ = execute(version, "/usr/local/bin/evaluate.sh", (optimize,), request.json["code"])
+    out, _ = execute(version, "evaluate", (optimize,), request.json["code"])
 
     if request.json.get("separate_output") is True:
         split = out.split(b"\xff", 1)
@@ -79,7 +79,7 @@ def evaluate(optimize, version):
 @enable_post_cors
 @extractor("version", "master", ("master",))
 def format(version):
-    out, rc = execute(version, "/usr/local/bin/format.sh", (), request.json["code"])
+    out, rc = execute(version, "format", (), request.json["code"])
     split = out.split(b"\xff", 1)
     if rc:
         return {"error": split[0].decode()}
@@ -92,16 +92,15 @@ def format(version):
 @extractor("optimize", "2", ("0", "1", "2", "3"))
 @extractor("emit", "asm", ("asm", "llvm-ir"))
 def compile(emit, optimize, version):
-    out, rc = execute(version, "/usr/local/bin/compile.sh", (optimize, emit), request.json["code"])
-    split = out.split(b"\xff", 1)
+    out, rc = execute(version, "compile", (optimize, emit), request.json["code"])
     if rc:
-        return {"error": split[0].decode()}
+        return {"error": out}
     else:
         if request.json.get("highlight") is not True:
-            return {"result": split[1].decode()}
+            return {"result": out}
         if emit == "asm":
-            return {"result": highlight(split[1].decode(), GasLexer(), HtmlFormatter(nowrap=True))}
-        return {"result": highlight(split[1].decode(), LlvmLexer(), HtmlFormatter(nowrap=True))}
+            return {"result": highlight(out, GasLexer(), HtmlFormatter(nowrap=True))}
+        return {"result": highlight(out, LlvmLexer(), HtmlFormatter(nowrap=True))}
 
 os.chdir(sys.path[0])
 run(host='0.0.0.0', port=8001, server='cherrypy')
